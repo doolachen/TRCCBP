@@ -77,7 +77,7 @@ def test(model, test_loader, loss, best=float('inf'), isolation=False):
             Data = data["feature"].to(device)
             target = data["gt"].to(device)
             ids = np.array(data["id"]).reshape(len(data["id"]),1)
-            status = np.array(data['status'],dtype=np.object).reshape(len(data["status"]),1)
+            status = np.array(data['status'],dtype=object).reshape(len(data["status"]),1)
             # print(status.shape)
             output = model(Data)
 
@@ -155,5 +155,5 @@ for epoch in range(epochs):
     scheduler.step()
 
 sio.savemat('./results/loss.mat', {'train_loss': train_loss_list, 'test_loss': test_loss_list, 'isolate_loss':isolate_loss_list})
-# accuracy = test(model, test_loader, loss)
-# torch.save(model, 'checkpoints/latest_' + str(round(accuracy, 2)) + '%' + '.pth')
+accuracy = test(model, test_loader, loss)
+torch.save(model, 'checkpoints/latest_' + str(round(accuracy, 2)) + '%' + '.pth')

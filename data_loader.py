@@ -18,7 +18,7 @@ class LoadDataset(Dataset):
         self.len = self.x_data.shape[0]
 
     def __getitem__(self, index):
-        feature = self.x_data[index] / 5.5
+        feature = self.x_data[index] / 5.5  # 归一化 self.x_data最大值最小值为5.32 -5.35 除5.5保证在-1,1
         label = self.label[index]
         # 坑：Cell数组读取标签时提取数据需要做的索引处理
         id = label[0][0][0]
